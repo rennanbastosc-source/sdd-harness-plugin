@@ -1,7 +1,7 @@
 {
   "name": "sdd-harness-plugin",
-  "version": "1.1.0",
-  "description": "Harness genérico e portátil de Spec-Driven Development com Loop Engineering Adaptativo e Auditoria Lean (PRD -> MVP -> Spec -> Implement -> Validate -> Finish | Audit)",
+  "version": "1.2.0",
+  "description": "Harness genérico e portátil de Spec-Driven Development com Loop Engineering Adaptativo, Código Enxuto e Auditoria (PRD -> MVP -> Spec -> Implement -> Validate -> Finish | Audit)",
   "author": "Antigravity SDD Team",
   "license": "MIT",
   "keywords": [
@@ -15,6 +15,15 @@
     "agent-skills",
     "ponytail",
     "loop-engineering"
+  ],
+  "commands": [
+    "commands/sdd",
+    "commands/sdd-plan",
+    "commands/sdd-spec",
+    "commands/sdd-implement",
+    "commands/sdd-validate",
+    "commands/sdd-finish",
+    "commands/sdd-audit"
   ],
   "skills": [
     "skills/sdd",
