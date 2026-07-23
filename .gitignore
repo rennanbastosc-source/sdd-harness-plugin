@@ -11,3 +11,7 @@ temp/
 # IDE Files
 .vscode/
 .idea/
+
+# Espelho gerado pelo harness a partir de commands/ e skills/ — nunca versionar
+.claude-plugin/commands/
+.claude-plugin/skills/
