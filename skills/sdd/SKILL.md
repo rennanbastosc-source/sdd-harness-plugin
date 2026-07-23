@@ -18,6 +18,7 @@ Você pode acionar cada etapa diretamente pelos comandos compostos:
 * **`/sdd-implement`** — Criação da branch (`feat/...`), commit dos docs, PR Draft e desenvolvimento e2e sequencial de ponta a ponta (Backend + UI + Testes).
 * **`/sdd-validate`** — Execução automatizada da bateria de qualidade (`tsc`, `lint`, `test`, `e2e` se houver UI).
 * **`/sdd-finish`** — Geração da Spec Final pós-implementação (*as-built*), atualização de estado (`STATE.md`), commit final, push e merge.
+* **`/sdd-audit`** — Auditoria holística do repositório (Lean code, consistência SDD/STATE.md e gaps de testes).
 
 ---
 

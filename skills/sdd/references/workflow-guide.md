@@ -18,10 +18,11 @@ Este guia orienta o agente durante as 5 etapas do **Spec-Driven Development (SDD
 
 ## 🔄 Encadeamento de Comandos (Next Step Matrix)
 
-| Comando Executado | Saída Esperada | **Chamada Obrigatória no Final** |
+| Slash Command | Saída Esperada | **Chamada Obrigatória no Final** |
 |---|---|---|
 | `/sdd-plan <feature>` | `PRD` + `MVP` (N fatias) gerados e lapidados em `docs/` | `👉 Próximo Passo Recomendado: /sdd-spec` |
 | `/sdd-spec` | Specs Técnicas base de **todas as fatias** em `docs/specs/` | `👉 Próximo Passo Recomendado: /sdd-implement` |
 | `/sdd-implement` | Branch criada, PR Draft aberta, Código Ponytail Enxuto + UI + Testes desenvolvidos | `👉 Próximo Passo Recomendado: /sdd-validate` |
 | `/sdd-validate` | Loop Adaptativo: Self-Healing, Bateria completa, E2E e Ponytail Review 100% verde | `👉 Próximo Passo Recomendado: /sdd-finish` |
 | `/sdd-finish` | Spec Final *as-built*, `STATE.md` atualizado, commit final, push e merge | `👉 Próximo Passo Recomendado: /sdd-plan <nova-feature>` |
+| `/sdd-audit` | Relatório executivo de dívida técnica, código enxuto, consistência SDD e gaps de testes | `👉 Próximo Passo Recomendado: /sdd-implement` ou `/sdd-spec` |

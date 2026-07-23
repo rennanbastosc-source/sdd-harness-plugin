@@ -19,15 +19,16 @@ O **SDD Harness Plugin** traz uma metodologia robusta de engenharia de produto p
 
 ## 🔄 Fluxo de Slash Commands
 
-O plugin disponibiliza 5 slash commands compostos que guiam o desenvolvedor e o agente passo a passo. **Toda etapa finaliza sugerindo automaticamente o próximo comando!**
+O plugin disponibiliza 6 slash commands compostos que guiam o desenvolvimento, a qualidade e a auditoria de código. **Toda etapa finaliza sugerindo automaticamente o próximo comando!**
 
 | Slash Command | Etapa | Descrição | Próximo Passo Sugerido |
 |---|---|---|---|
 | **`/sdd-plan <feature>`** | 1. Produto | Entrevista de alinhamento lapidada e geração de `PRD` + `MVP` (N fatias) em `docs/` | `👉 /sdd-spec` |
 | **`/sdd-spec`** | 2. Arquitetura | Mapeamento arquitetural holístico e geração das specs base de **todas as fatias** em `docs/specs/` | `👉 /sdd-implement` |
 | **`/sdd-implement`** | 3. Código & Governança | Criação da branch (`feat/...`), commit dos docs, PR Draft e desenvolvimento e2e sequencial (Backend + UI + Testes) | `👉 /sdd-validate` |
-| **`/sdd-validate`** | 4. Qualidade | Execução automatizada da bateria (`tsc`, `lint`, `test`, `e2e` se houver UI) | `👉 /sdd-finish` |
+| **`/sdd-validate`** | 4. Qualidade | Execução automatizada da bateria (Triage de complexidade, Self-Healing por logs, `tsc`, `lint`, `test`, `e2e` e Ponytail Review) | `👉 /sdd-finish` |
 | **`/sdd-finish`** | 5. Conclusão | Geração da Spec Final pós-implementação (*as-built*), atualização de `STATE.md`, commit final, push e merge | `👉 /sdd-plan` |
+| **`/sdd-audit`** | 6. Auditoria | Auditoria holística do repositório em 3 dimensões (Lean Code/Ponytail, Governança SDD/STATE.md e Cobertura de Testes) | `👉 /sdd-implement` |
 
 ---
 
