@@ -1,0 +1,8 @@
+{
+  "name": "sdd-harness-plugin",
+  "version": "1.0.1",
+  "description": "Harness genérico e portátil de Spec-Driven Development (PRD -> MVP -> Spec -> Implement -> Validate -> Finish)",
+  "author": {
+    "name": "Antigravity SDD Team"
+  }
+}
