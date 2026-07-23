@@ -10,9 +10,10 @@ O **SDD Harness Plugin** traz uma metodologia robusta de engenharia de produto p
 
 1. **Visão de Produto Alinhada (`PRD`):** Nenhuma linha de código é escrita sem entender a dor do usuário e o valor de negócio.
 2. **Escopo Mínimo Viável (`MVP`):** Recorte rigoroso entre **Must-Have** (MVP) e **Nice-To-Have** (futuro), fatiando a entrega em etapas gerenciáveis.
-3. **Especificação Técnica Estrita (`Spec`):** Arquitetura, dados, APIs, UI e testes mapeados antes da implementação.
-4. **Entregas Ponta a Ponta:** Toda fatia é construída completa (Backend + Frontend + Testes no mesmo ciclo).
-5. **Automação de Qualidade (`Validate`):** Deteção automática da stack do projeto e execução de linters, typecheckers e suíte de testes.
+3. **Especificação Técnica Estrita (`Spec`):** Arquitetura, dados, APIs, UI e testes mapeados de todas as fatias antes da implementação.
+4. **Código Enxuto (`Ponytail Lean Engineering`):** Regras ativas contra sobre-engenharia (*Lazy Senior Dev Mode*). Reuso máximo de código, stdlib e APIs nativas.
+5. **Loop Engineering Adaptativo (`Validate`):** Triage por complexidade, auto-cura (*Self-Healing*) de até 3 voltas em caso de falhas e auditoria anti-overengineering no diff antes do visto final.
+6. **Entregas Ponta a Ponta:** Toda fatia é construída completa (Backend + Frontend + Testes no mesmo ciclo).
 
 ---
 

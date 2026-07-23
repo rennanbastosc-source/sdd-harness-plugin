@@ -41,3 +41,4 @@ Você pode acionar cada etapa diretamente pelos comandos compostos:
 - [Template de MVP](references/mvp-template.md)
 - [Template de Spec](references/spec-template.md)
 - [Guia do Workflow](references/workflow-guide.md)
+- [Guia Ponytail de Código Enxuto](references/ponytail-guide.md)

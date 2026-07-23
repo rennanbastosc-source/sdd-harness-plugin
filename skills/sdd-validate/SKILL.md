@@ -9,14 +9,21 @@ Executa a validação rigorosa de qualidade no repositório com lógica de port�
 
 ## Passos de Execução
 
-1. **Detecção da Stack do Repositório:**
-   - Inspeciona o projeto para identificar os comandos de validação adequados (`tsc`, `lint`, `test`, `e2e`).
+1. **Triage de Complexidade & Risco:**
+   - Analisa o `git diff` e os módulos alterados para determinar o nível de risco:
+     - **🟢 Baixa Complexidade:** Alterações visuais simples, correções de texto, refatorações isoladas. Roda `tsc`, `lint` e testes unitários existentes. Permite 1 volta de self-healing.
+     - **🔴 Alta Complexidade / Risco Crítico:** Mudanças em auth, regras de negócio/cálculos, schemas de banco ou fluxos de UI multi-etapas. Aciona a bateria profunda com Self-Healing de até 3 voltas, testes E2E e Auditoria Ponytail.
 
-2. **Execução da Bateria de Qualidade (Portão Fechado):**
-   - **Typecheck & Lint:** Valida a integridade estática de tipos e estilos de código.
-   - **Testes de Unidade e Integração:** Garante que a lógica de negócio e banco funcionam sem regressão.
-   - **Testes E2E (UI):** Se a implementação tocou a interface do usuário ou telas, **OBRIGATORIAMENTE** executa a suíte de testes E2E (ex: Playwright/Cypress) para validar a experiência do usuário end-to-end.
-   - **Sem Mascarar Erros:** Se qualquer etapa falhar, o processo para. **NUNCA MASCARE O ERRO**. Corrija a causa raiz no código antes de aprovar.
+2. **Loop de Auto-Cura (Self-Healing Loop):**
+   - Executa a bateria (`tsc`, `lint`, `test`, `e2e`).
+   - Se ocorrer qualquer falha: **extrai o log bruto**, diagnostica a causa raiz, aplica a correção no código e **re-executa a bateria automaticamente** (até 3 voltas). **NUNCA MASCARE ERROS**.
+
+3. **Auditoria Ponytail Anti-Overengineering:**
+   - Inspeciona o `git diff` procurando oportunidades de simplificação (`skills/sdd/references/ponytail-guide.md`):
+     - `yagni:` Remove abstrações ou configs preparadas sem necessidade.
+     - `delete:` Remove código morto ou retalhos desnecessários.
+     - `shrink:` Simplifica estruturas complexas para formas enxutas e nativas.
+   - Aplica os cortes/simplificações sem quebrar a suíte de testes.
 
 ---
 
