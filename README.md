@@ -22,11 +22,11 @@ O plugin disponibiliza 5 slash commands compostos que guiam o desenvolvedor e o 
 
 | Slash Command | Etapa | Descrição | Próximo Passo Sugerido |
 |---|---|---|---|
-| **`/sdd-plan <feature>`** | 1. Produto | Entrevista de alinhamento e geração do `PRD` e `MVP` em `docs/` | `👉 /sdd-spec Fatia-01` |
-| **`/sdd-spec <fatia>`** | 2. Arquitetura | Mapeamento técnico e geração da `Spec` em `docs/specs/` | `👉 /sdd-implement` |
-| **`/sdd-implement`** | 3. Código | Desenvolvimento de ponta a ponta (Backend + UI + Testes) | `👉 /sdd-validate` |
-| **`/sdd-validate`** | 4. Qualidade | Execução automatizada da bateria (`tsc`, `lint`, `test`, `e2e`) | `👉 /sdd-finish` |
-| **`/sdd-finish`** | 5. Conclusão | Atualização de estado (`STATE.md`), limpeza e commit convencional | `👉 /sdd-spec Fatia-02` ou `/sdd-plan` |
+| **`/sdd-plan <feature>`** | 1. Produto | Entrevista de alinhamento lapidada e geração de `PRD` + `MVP` (N fatias) em `docs/` | `👉 /sdd-spec` |
+| **`/sdd-spec`** | 2. Arquitetura | Mapeamento arquitetural holístico e geração das specs base de **todas as fatias** em `docs/specs/` | `👉 /sdd-implement` |
+| **`/sdd-implement`** | 3. Código & Governança | Criação da branch (`feat/...`), commit dos docs, PR Draft e desenvolvimento e2e sequencial (Backend + UI + Testes) | `👉 /sdd-validate` |
+| **`/sdd-validate`** | 4. Qualidade | Execução automatizada da bateria (`tsc`, `lint`, `test`, `e2e` se houver UI) | `👉 /sdd-finish` |
+| **`/sdd-finish`** | 5. Conclusão | Geração da Spec Final pós-implementação (*as-built*), atualização de `STATE.md`, commit final, push e merge | `👉 /sdd-plan` |
 
 ---
 

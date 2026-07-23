@@ -1,28 +1,28 @@
 ---
 name: sdd-spec
-description: Lê o PRD/MVP e gera a especificação técnica detalhada da fatia (docs/specs/spec-<fatia>.md) com mapeamento de banco, APIs, UI e testes.
+description: Lê o PRD/MVP e gera as especificações técnicas base de todas as fatias do MVP (docs/specs/spec-<fatia>.md) com mapeamento holístico de banco, APIs, UI e testes.
 ---
 
-# /sdd-spec [fatia-ou-funcionalidade]
+# /sdd-spec [fatia-ou-funcionalidade-opcional]
 
-Traduz uma fatia do MVP em uma especificação técnica detalhada pronta para ser implementada.
+Mapeia a arquitetura técnica e gera as especificações técnicas base de **todas as fatias** previstas no MVP, fornecendo uma visão arquitetural holística antes de criar qualquer linha de código.
 
 ## Passos de Execução
 
-1. **Leitura do Contexto:**
-   - Lê `docs/prd/` e `docs/mvp/` para extrair os requisitos da fatia solicitada.
-   - Analisa o repositório atual (usando `codebase-memory` ou busca textual) para mapear símbolos, funções, schemas de banco e componentes afetados.
+1. **Análise de Contexto Arquitetural:**
+   - Lê `docs/prd/` e `docs/mvp/` para identificar o fatiamento completo do escopo.
+   - Inspeciona a estrutura do repositório (usando `codebase-memory` ou busca textual) para mapear símbolos, funções, modelos de banco (Prisma/ORM), APIs e componentes UI afetados por cada fatia.
 
-2. **Geração da Spec Técnica:**
-   - Cria `docs/specs/spec-<fatia>.md` usando o template em `skills/sdd/references/spec-template.md`.
-   - Preenche escopo, arquivos afetados, contratos de dados, componentes UI e critérios de aceite com testes.
+2. **Geração das Specs Técnicas Base:**
+   - Para cada fatia do MVP, gera a especificação correspondente em `docs/specs/spec-<fatia>.md` (ex: `spec-fatia-01.md`, `spec-fatia-02.md`) usando o template em `skills/sdd/references/spec-template.md`.
+   - Preenche o escopo funcional, arquivos a alterar/criar, contratos de dados, interfaces visuais, critérios de aceite e plano de testes (unitários, integração e e2e se tocar UI).
 
 ---
 
 ## 🛑 REGRA OBRIGATÓRIA DE SAÍDA (NEXT COMMAND CALLOUT)
 
-Ao finalizar a spec técnica, o agente **DEVE obrigatoriamente** terminar a resposta exibindo o seguinte aviso em destaque:
+Ao finalizar a geração das specs técnicas de todas as fatias, o agente **DEVE obrigatoriamente** terminar a resposta exibindo o seguinte aviso em destaque:
 
 > **👉 Próximo Passo Recomendado:**
-> A especificação está pronta! Execute o comando para construir a funcionalidade de ponta a ponta:
+> As especificações de todas as fatias estão mapeadas! Execute o comando para criar a branch da feature, abrir a PR e iniciar a implementação sequencial de ponta a ponta:
 > `/sdd-implement`

@@ -1,31 +1,33 @@
 ---
 name: sdd-finish
-description: Atualiza os arquivos de estado do projeto (STATE.md, BACKLOG.md, etc.) e finaliza a fatia entregue com commit no padrão Conventional Commits.
+description: Consolida a Spec Final pós-implementação (as-built), atualiza o estado do projeto (STATE.md) e finaliza com commit convencional, push e merge.
 ---
 
 # /sdd-finish
 
-Finaliza o ciclo da fatia entregue e registra as alterações no controle de versão e documentação.
+Finaliza o ciclo completo do desenvolvimento, registrando a documentação final *as-built*, atualizando o estado do repositório e concluindo o fluxo Git.
 
 ## Passos de Execução
 
-1. **Atualização da Spec:**
-   - Marca o status da spec ativa como `CONCLUÍDO` em `docs/specs/spec-*.md`.
+1. **Geração da Spec Final Pós-Implementação (*As-Built*):**
+   - Consolida e atualiza `docs/specs/spec-*.md` refletindo o estado final exato de como a funcionalidade foi construída no código (registrando quaisquer refinamentos de design ou ajustes técnicos feitos durante o dev).
+   - Marca o status de todas as specs como `CONCLUÍDO`.
 
 2. **Atualização do Estado do Repositório:**
-   - Atualiza `STATE.md` (se existir) adicionando novos invariantes vivos ou alterações estruturais.
-   - Atualiza `BACKLOG.md` / `STATE_ARCHIVE.md` (se existirem) removendo itens concluídos.
+   - Atualiza `STATE.md` (se existir) registrando novos invariantes vivos, modelos de banco ou decisões arquiteturais introduzidas.
+   - Atualiza `BACKLOG.md` / `STATE_ARCHIVE.md` (se existirem) movendo os itens entregues para concluídos.
 
-3. **Commit dos Artefatos:**
-   - Prepara e executa a mensagem de commit utilizando **Conventional Commits** em PT-BR (ex: `feat(modulo): adiciona fluxo de...`).
+3. **Commit Final, Push e Governança de PR:**
+   - Prepara e executa o commit final utilizando **Conventional Commits** em PT-BR (ex: `feat(modulo): conclui implementação de...`).
+   - Faz o push da branch de feature (`git push origin feat/<nome-feature>`).
+   - Orienta ou executa a finalização da Pull Request (merge/squash conforme a convenção do projeto) e limpeza de branch local.
 
 ---
 
 ## 🛑 REGRA OBRIGATÓRIA DE SAÍDA (NEXT COMMAND CALLOUT)
 
-Ao concluir o commit e o fechamento da fatia, o agente **DEVE obrigatoriamente** terminar a resposta exibindo o seguinte aviso em destaque:
+Ao concluir a consolidação e o merge da funcionalidade, o agente **DEVE obrigatoriamente** terminar a resposta exibindo o seguinte aviso em destaque:
 
 > **👉 Próximo Passo Recomendado:**
-> 
-> - **Se houver mais fatias pendentes no MVP:** execute `/sdd-spec Fatia-XX` (substituindo pelo nome da próxima fatia).
-> - **Se o MVP foi 100% concluído e você vai iniciar um novo produto/feature:** execute `/sdd-plan <nome-da-nova-feature>`.
+> A funcionalidade e a documentação *as-built* foram concluídas e integradas com sucesso! Para iniciar o planejamento de um novo produto ou feature:
+> `/sdd-plan <nome-da-nova-feature>`
