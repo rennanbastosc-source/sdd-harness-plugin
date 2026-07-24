@@ -20,6 +20,7 @@ Este guia orienta o agente durante as 5 etapas do **Spec-Driven Development (SDD
 
 | Slash Command | Saída Esperada | **Chamada Obrigatória no Final** |
 |---|---|---|
+| `/sdd` | **Guardião de sessão (multi-worktree):** enumera as worktrees e reconstrói o checkpoint de cada sessão (fase + progresso X/N) a partir de `docs/` e Git; resume a frota apontando o comando e a pasta corretos; ideal após `/clear` | `👉 <próximo comando + pasta, derivados do estado detectado>` |
 | `/sdd-plan <feature>` | `PRD` + `MVP` (N fatias) gerados e lapidados em `docs/` | `👉 Próximo Passo Recomendado: /sdd-spec` |
 | `/sdd-spec` | Specs Técnicas base de **todas as fatias** em `docs/specs/` | `👉 Próximo Passo Recomendado: /sdd-implement` |
 | `/sdd-implement` | **Uma fatia** implementada (Backend + UI + Testes Ponytail) e commitada na PR Draft; governança criada na 1ª execução | `👉 /sdd-implement` (se restam fatias pendentes) **\|** `👉 /sdd-validate` (após a última fatia) |
