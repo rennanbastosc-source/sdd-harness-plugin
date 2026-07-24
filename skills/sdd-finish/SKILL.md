@@ -1,6 +1,6 @@
 ---
 name: sdd-finish
-description: Consolida a Spec Final pós-implementação (as-built), atualiza o estado do projeto (STATE.md) e finaliza com commit convencional, push e merge.
+description: Consolida a Spec Final pós-implementação (as-built), atualiza o estado do projeto (STATE.md) e finaliza com commit convencional, push e squash-merge da PR.
 ---
 
 # /sdd-finish
@@ -17,10 +17,10 @@ Finaliza o ciclo completo do desenvolvimento, registrando a documentação final
    - Atualiza `STATE.md` (se existir) registrando novos invariantes vivos, modelos de banco ou decisões arquiteturais introduzidas.
    - Atualiza `BACKLOG.md` / `STATE_ARCHIVE.md` (se existirem) movendo os itens entregues para concluídos.
 
-3. **Commit Final, Push e Governança de PR:**
+3. **Commit Final, Push e Squash-Merge da PR:**
    - Prepara e executa o commit final utilizando **Conventional Commits** em PT-BR (ex: `feat(modulo): conclui implementação de...`).
    - Faz o push da branch de feature (`git push origin feat/<nome-feature>`).
-   - Orienta ou executa a finalização da Pull Request (merge/squash conforme a convenção do projeto) e limpeza de branch local.
+   - Marca a Pull Request como pronta (`gh pr ready`) e a integra via **squash-merge** com título em Conventional Commit, removendo a branch: `gh pr merge --squash --delete-branch`.
 
 ---
 

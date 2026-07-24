@@ -13,10 +13,10 @@ Executa uma auditoria completa de saúde técnica, arquitetura e governança no 
 
 1. **Dimensão 1: Lean Code Audit (Estilo Ponytail)**
    - Identifica sobre-engenharia, código morto, abstrações prematuras e reinvenção de stdlib ou APIs nativas.
-   - Tags de auditoria:
+   - Tags de auditoria — **fonte única da verdade em `skills/sdd/references/ponytail-guide.md`** (`delete`, `stdlib`, `yagni`, `shrink`):
      - `delete:` Código morto, retalhos sem uso ou flexibilidade especulativa.
-     - `yagni:` Abstração com apenas 1 implementação ou config não utilizada.
      - `stdlib:` Código manual substituível por função nativa da linguagem/plataforma.
+     - `yagni:` Abstração com apenas 1 implementação ou config não utilizada.
      - `shrink:` Oportunidade de simplificação e redução de linhas.
 
 2. **Dimensão 2: Governança SDD & Consistência de Estado**

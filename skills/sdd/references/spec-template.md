@@ -1,6 +1,6 @@
 # Spec Técnica: [Fatia XX - Nome da Fatia]
 
-> **Feature:** [Nome da Feature] | **Status:** `EM ANDAMENTO` | **Data:** [YYYY-MM-DD]
+> **Feature:** [Nome da Feature] | **Status:** `PENDENTE` | **Data:** [YYYY-MM-DD]
 
 ## 1. Escopo & Objetivos da Fatia
 - **Descrição da entrega:** [O que será construído exatamente nesta fatia]
@@ -31,7 +31,7 @@
 - [ ] **Validação Estrita:** Passar em `tsc`, `lint` e `test`.
 
 ## 6. Checkpoint de Execução
-- **Status:** `EM ANDAMENTO`
+- **Status:** `PENDENTE` <!-- /sdd-implement flipa: PENDENTE → EM ANDAMENTO → CONCLUÍDO -->
 - **Concluído:** [Lista de itens prontos]
 - **Pendente:** [Lista de itens a fazer]
-- **Próximo comando:** `/sdd-validate`
+- **Próximo comando:** `/sdd-implement` (repita até a última fatia; depois `/sdd-validate`)
