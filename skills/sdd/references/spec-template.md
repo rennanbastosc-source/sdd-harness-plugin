@@ -1,6 +1,9 @@
 # Spec Técnica: [Fatia XX - Nome da Fatia]
 
-> **Feature:** [Nome da Feature] | **Status:** `PENDENTE` | **Data:** [YYYY-MM-DD]
+> **Feature:** `<slug>` | **Status:** `PENDENTE` | **Data:** [YYYY-MM-DD]
+
+<!-- Arquivo: docs/specs/spec-<slug>-fatia-XX.md — o <slug> no nome é obrigatório e isola esta feature de fluxos SDD paralelos. -->
+
 
 ## 1. Escopo & Objetivos da Fatia
 - **Descrição da entrega:** [O que será construído exatamente nesta fatia]

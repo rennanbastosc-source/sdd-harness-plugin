@@ -9,13 +9,19 @@ Gerencia o ciclo de governança de versão e executa o desenvolvimento em códig
 
 ## Passos de Execução
 
+0. **Resolução da Feature Ativa (obrigatório, antes de tudo):**
+   - Aplique o **Motor de Escopo por Feature** de `skills/sdd/references/workflow-guide.md` (fonte única da verdade) para resolver o `<slug>`. Em caso de ambiguidade, **PARE e pergunte**.
+   - Todo o resto desta execução opera **exclusivamente** sobre os artefatos desse slug.
+
 1. **Governança de Versão (idempotente — configura uma vez, reusa depois):**
-   - **Branch:** Se o repositório não estiver na branch exclusiva da feature (`feat/<nome-feature>`), cria e alterna. Se já estiver, reusa (nunca recria).
-   - **Commit dos docs:** Se os documentos de planejamento (`docs/prd/`, `docs/mvp/`, `docs/specs/`) ainda não foram commitados, commita-os agora.
+   - **Branch:** Se o repositório não estiver na branch exclusiva da feature (`feat/<slug>`, derivada do slug canônico), cria e alterna. Se já estiver, reusa (nunca recria).
+   - **Commit dos docs:** Se os documentos de planejamento da feature ainda não foram commitados, commita-os agora **listando os arquivos nominalmente** (`docs/prd/PRD-<slug>.md`, `docs/mvp/MVP-<slug>.md`, `docs/specs/spec-<slug>-fatia-*.md`). **Nunca use `git add docs/`** — isso arrastaria para a PR os artefatos de features paralelas em andamento.
+   - **Merge driver do `STATE.md`:** Garante a linha `STATE.md merge=union` no `.gitattributes` do projeto (cria o arquivo se não existir, não duplica se já estiver lá). É o que faz o Git concatenar automaticamente os registros de features paralelas em vez de reportar conflito.
    - **PR Draft:** Se ainda não há PR aberta para a branch, abre uma **Pull Request Draft** (`gh pr create --draft`) com descrição clara do escopo e um **checklist das N fatias**. Se já existir, apenas identifica e reusa. **Nunca abre uma segunda PR.**
 
-2. **Seleção da Fatia Atual (estado explícito):**
-   - Lê todas as `docs/specs/spec-*.md`, conta o total `N` de fatias e seleciona a **primeira fatia** cujo `Status` seja diferente de `CONCLUÍDO` (i.e. `PENDENTE` ou `EM ANDAMENTO`). Essa é a **fatia da vez**.
+2. **Seleção da Fatia Atual (estado explícito, dentro da feature):**
+   - Lê **apenas** as specs desta feature (`docs/specs/spec-<slug>-fatia-*.md`, mais as legadas atribuídas a ela pela regra de compatibilidade do motor), conta o total `N` de fatias e seleciona a **primeira fatia** cujo `Status` seja diferente de `CONCLUÍDO` (i.e. `PENDENTE` ou `EM ANDAMENTO`). Essa é a **fatia da vez**.
+   - Specs de outras features **nunca** entram nesta seleção nem na contagem de `N`.
    - Se **nenhuma** fatia estiver pendente (todas `CONCLUÍDO`), pule direto para a Regra de Saída (caminho "todas concluídas").
    - Marca a fatia selecionada como `EM ANDAMENTO` no cabeçalho e na seção "Checkpoint de Execução" da sua spec.
 
@@ -33,7 +39,7 @@ Gerencia o ciclo de governança de versão e executa o desenvolvimento em códig
 
 4. **Checkpoint & Commit da Fatia (write-back de estado):**
    - Atualiza o `Status` da fatia para `CONCLUÍDO` no cabeçalho e na seção "Checkpoint de Execução" da sua spec.
-   - Executa o commit da fatia usando **Conventional Commits** em PT-BR (ex: `feat(<modulo>): implementa fatia <XX> - <nome-da-fatia>`) e faz o push na branch da PR (`git push origin feat/<nome-feature>`).
+   - Executa o commit da fatia usando **Conventional Commits** em PT-BR (ex: `feat(<modulo>): implementa fatia <XX> - <nome-da-fatia>`) e faz o push na branch da PR (`git push origin feat/<slug>`).
 
 ---
 

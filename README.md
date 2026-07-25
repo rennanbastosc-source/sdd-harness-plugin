@@ -19,10 +19,11 @@ O **SDD Harness Plugin** traz uma metodologia robusta de engenharia de produto p
 
 ## 🔄 Fluxo de Slash Commands
 
-O plugin disponibiliza 6 slash commands compostos que guiam o desenvolvimento, a qualidade e a auditoria de código. **Toda etapa finaliza sugerindo automaticamente o próximo comando!**
+O plugin disponibiliza 7 slash commands compostos que guiam o desenvolvimento, a qualidade e a auditoria de código. **Toda etapa finaliza sugerindo automaticamente o próximo comando!**
 
 | Slash Command | Etapa | Descrição | Próximo Passo Sugerido |
 |---|---|---|---|
+| **`/sdd`** | 0. Retomada | Guardião de sessão multi-worktree: reconstrói o checkpoint de cada fluxo SDD ativo a partir de `docs/` e do Git (ideal após um `/clear`) | `👉 <comando + pasta detectados>` |
 | **`/sdd-plan <feature>`** | 1. Produto | Entrevista de alinhamento lapidada e geração de `PRD` + `MVP` (N fatias) em `docs/` | `👉 /sdd-spec` |
 | **`/sdd-spec`** | 2. Arquitetura | Mapeamento arquitetural holístico e geração das specs base de **todas as fatias** em `docs/specs/` | `👉 /sdd-implement` |
 | **`/sdd-implement`** | 3. Código & Governança | Criação da branch (`feat/...`), commit dos docs, PR Draft e desenvolvimento e2e sequencial (Backend + UI + Testes) | `👉 /sdd-validate` |
@@ -63,12 +64,27 @@ Ao utilizar o plugin, a seguinte estrutura limpa é mantida em `docs/`:
 <raiz-do-projeto>/
 └── docs/
     ├── prd/
-    │   └── PRD-<feature>.md
+    │   ├── PRD-auth.md
+    │   └── PRD-billing.md
     ├── mvp/
-    │   └── MVP-<feature>.md
+    │   ├── MVP-auth.md
+    │   └── MVP-billing.md
     └── specs/
-        └── spec-<feature>-fatia-XX.md
+        ├── spec-auth-fatia-01.md
+        ├── spec-auth-fatia-02.md
+        ├── spec-billing-fatia-01.md
+        └── spec-billing-fatia-02.md
 ```
+
+### 🔑 Fluxos paralelos sem colisão
+
+Todo artefato carrega o **slug canônico** da feature no nome (minúsculas, sem acentos, kebab-case), e o mesmo slug nomeia a branch `feat/<slug>` e o bloco `### <slug>` no `STATE.md`. Cada subcomando `/sdd-*` resolve a feature ativa — pelo argumento, pela branch ou pelo MVP único da worktree — e opera **exclusivamente** sobre os arquivos dela.
+
+Consequência prática: duas features em worktrees paralelas escrevem conjuntos de arquivos disjuntos, uma nunca sobrescreve as specs da outra, e as duas branches mergeiam em `docs/` sem conflito. A regra completa está em [`skills/sdd/references/workflow-guide.md`](skills/sdd/references/workflow-guide.md) (**Motor de Escopo por Feature**).
+
+O `STATE.md` é global e recebe um bloco `### <slug>` **append-only** por feature; `/sdd-implement` garante `STATE.md merge=union` no `.gitattributes` para que o próprio Git concatene os registros de fluxos paralelos sem conflito.
+
+Specs no formato antigo (`spec-fatia-NN.md`, sem slug) continuam sendo lidas quando a worktree tem uma única feature. Nada é renomeado automaticamente.
 
 ---
 

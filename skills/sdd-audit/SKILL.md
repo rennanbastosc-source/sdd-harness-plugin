@@ -20,9 +20,11 @@ Executa uma auditoria completa de saúde técnica, arquitetura e governança no 
      - `shrink:` Oportunidade de simplificação e redução de linhas.
 
 2. **Dimensão 2: Governança SDD & Consistência de Estado**
+   - Esta é a única dimensão que audita o repositório inteiro, **agrupando os achados por feature**: `docs/` pode conter vários fluxos SDD legítimos em paralelo (ver o Motor de Escopo em `skills/sdd/references/workflow-guide.md`). Uma feature em andamento numa worktree paralela **não é** dívida técnica.
    - Inspeciona o alinhamento entre o código vivo e a documentação do projeto:
-     - **Specs Fantasma:** Specs marcadas como `EM ANDAMENTO` ou `PENDENTE` abandonadas em `docs/specs/`.
-     - **Sincronia com `STATE.md`:** Verifica se alterações em modelos de banco, Server Actions ou rotas críticas foram registradas no `STATE.md`.
+     - **Specs Fantasma:** Specs `EM ANDAMENTO` ou `PENDENTE` cuja feature não tem branch `feat/<slug>` viva nem trabalho recente — abandonadas, não apenas paralelas.
+     - **Specs Órfãs:** Specs em `docs/specs/` sem `docs/mvp/MVP-<slug>.md` correspondente, e specs no formato legado (`spec-fatia-NN.md`, sem slug) num repositório com ≥ 2 MVPs — nesse caso não há como atribuí-las com segurança; reporte e sugira a renomeação, sem executá-la.
+     - **Sincronia com `STATE.md`:** Verifica se alterações em modelos de banco, Server Actions ou rotas críticas foram registradas no bloco `### <slug>` da feature dentro da seção `## Features Integradas`.
      - **Invariantes do Projeto:** Garante que regras permanentes e restrições imutáveis continuam sendo respeitadas.
 
 3. **Dimensão 3: Cobertura & Densidade de Testes**
@@ -42,11 +44,12 @@ O relatório de auditoria deve ser exibido de forma concisa e ranqueado pelo **m
 2. L12 [package.json] native: Lib externa usada para 1 format. Usar Intl.DateTimeFormat (net: -1 dep)
 
 --- 📜 GOVERNANÇA SDD & ESTADO ---
-3. [STATE.md] out-of-sync: Novo modelo de banco não registrado nos invariantes.
-4. [docs/specs/spec-fatia-02.md] ghost-spec: Spec pendente sem implementação ativa.
+3. [STATE.md] out-of-sync: Novo modelo de banco ausente no bloco ### billing.
+4. [docs/specs/spec-billing-fatia-02.md] ghost-spec: Spec pendente sem branch feat/billing viva.
+5. [docs/specs/spec-fatia-03.md] orphan-spec: Formato legado sem MVP atribuível (2 features no repo).
 
 --- 🛡️ GAPS DE QUALIDADE & TESTES ---
-5. [src/actions/domain.ts] missing-test: Action crítica sem cobertura de testes.
+6. [src/actions/domain.ts] missing-test: Action crítica sem cobertura de testes.
 
 ---------------------------------------------------------
 📉 Oportunidade Total: -N linhas, -M dependências, X atualizações de docs.

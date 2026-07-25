@@ -1,6 +1,6 @@
 {
   "name": "sdd-harness-plugin",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Harness genérico e portátil de Spec-Driven Development com Loop Engineering Adaptativo, Código Enxuto e Auditoria (PRD -> MVP -> Spec -> Implement -> Validate -> Finish | Audit)",
   "author": {
     "name": "Antigravity SDD Team"

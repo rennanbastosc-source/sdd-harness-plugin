@@ -9,17 +9,20 @@ Finaliza o ciclo completo do desenvolvimento, registrando a documentação final
 
 ## Passos de Execução
 
-1. **Geração da Spec Final Pós-Implementação (*As-Built*):**
-   - Consolida e atualiza `docs/specs/spec-*.md` refletindo o estado final exato de como a funcionalidade foi construída no código (registrando quaisquer refinamentos de design ou ajustes técnicos feitos durante o dev).
-   - Marca o status de todas as specs como `CONCLUÍDO`.
+0. **Resolução da Feature Ativa (obrigatório, antes de tudo):**
+   - Aplique o **Motor de Escopo por Feature** de `skills/sdd/references/workflow-guide.md` (fonte única da verdade) para resolver o `<slug>`. Em caso de ambiguidade, **PARE e pergunte**.
 
-2. **Atualização do Estado do Repositório:**
-   - Atualiza `STATE.md` (se existir) registrando novos invariantes vivos, modelos de banco ou decisões arquiteturais introduzidas.
-   - Atualiza `BACKLOG.md` / `STATE_ARCHIVE.md` (se existirem) movendo os itens entregues para concluídos.
+1. **Geração da Spec Final Pós-Implementação (*As-Built*), só da feature ativa:**
+   - Consolida e atualiza **apenas** as specs desta feature (`docs/specs/spec-<slug>-fatia-*.md`, mais as legadas atribuídas a ela) refletindo o estado final exato de como a funcionalidade foi construída no código (registrando quaisquer refinamentos de design ou ajustes técnicos feitos durante o dev).
+   - Marca o status **dessas** specs como `CONCLUÍDO`. **Nunca** toque em specs de outras features — elas podem estar em implementação ativa numa worktree paralela.
+
+2. **Atualização do Estado do Repositório (append-only):**
+   - Atualiza `STATE.md` (se existir) **anexando** o bloco desta feature, conforme o protocolo append-only do Motor de Escopo: garante a seção `## Features Integradas` e acrescenta ao fim dela `### <slug> · <data> · PR #<n>` com invariantes vivos, modelos de banco e decisões arquiteturais introduzidas. **Nunca reescreva blocos de outras features nem o corpo pré-existente do arquivo** — é isso que evita conflito de merge entre fluxos paralelos.
+   - Atualiza `BACKLOG.md` / `STATE_ARCHIVE.md` (se existirem) movendo **os itens desta feature** para concluídos.
 
 3. **Commit Final, Push e Squash-Merge da PR:**
    - Prepara e executa o commit final utilizando **Conventional Commits** em PT-BR (ex: `feat(modulo): conclui implementação de...`).
-   - Faz o push da branch de feature (`git push origin feat/<nome-feature>`).
+   - Faz o push da branch de feature (`git push origin feat/<slug>`).
    - Marca a Pull Request como pronta (`gh pr ready`) e a integra via **squash-merge** com título em Conventional Commit, removendo a branch: `gh pr merge --squash --delete-branch`.
 
 ---
