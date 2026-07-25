@@ -105,8 +105,8 @@ O fluxo completo, na ordem `PRD → MVP → Spec → Implement → Validate → 
 
 * **`/sdd-plan <nome-feature>`** — Entrevista de produto (com gate de espera) e criação do PRD (`docs/prd/`) e MVP fatiado (`docs/mvp/`).
 * **`/sdd-spec`** — Mapeamento holístico de arquitetura e geração das specs base de **todas as fatias** (`docs/specs/spec-<slug>-fatia-NN.md`), com verificação de cobertura `N specs == N fatias` **dentro da feature**.
-* **`/sdd-implement`** — Governança na 1ª execução (branch `feat/...`, commit dos docs, PR Draft) e implementação **fatia a fatia** (uma fatia por execução, commit na PR) de ponta a ponta (Backend + UI + Testes). Repita até a última fatia.
-* **`/sdd-validate`** — Execução automatizada da bateria de qualidade (detecta a stack: `tsc`, `lint`, `test`, `e2e` / `pytest`).
+* **`/sdd-implement`** — Governança na 1ª execução (branch `feat/...`, commit dos docs, PR Draft) e implementação **fatia a fatia** de ponta a ponta (Backend + UI + Testes), com o **loop de validação no escopo Fatia como portão de commit**. Repita até a última fatia.
+* **`/sdd-validate`** — O mesmo loop no **escopo Feature**: branch inteira, suíte completa e E2E obrigatório, para pegar regressão entre fatias antes do merge.
 * **`/sdd-finish`** — Geração da Spec Final pós-implementação (*as-built*), registro append-only no `STATE.md`, commit final, push e **squash-merge** da PR.
 * **`/sdd-audit`** — Auditoria holística do repositório (Lean code, consistência SDD/STATE.md e gaps de testes).
 
@@ -136,6 +136,7 @@ O `<slug>` no nome de **todo** artefato é o que permite fluxos SDD paralelos (w
 
 ## 📚 Referências Globais
 - [Motor de Escopo por Feature](references/workflow-guide.md) — slug canônico, resolução da feature ativa e `STATE.md` append-only
+- [Guia do Loop de Validação](references/loop-guide.md) — rotina única de auto-cura e review, nos escopos Fatia e Feature
 - [Template de PRD](references/prd-template.md)
 - [Template de MVP](references/mvp-template.md)
 - [Template de Spec](references/spec-template.md)

@@ -1,11 +1,13 @@
 ---
 name: sdd-implement
-description: Implementa UMA fatia por execução (a primeira pendente) de ponta a ponta (Backend + UI + Testes), commitando na PR Draft, e reconvida a próxima fatia até a última.
+description: Implementa UMA fatia por execução (a primeira pendente) de ponta a ponta (Backend + UI + Testes), roda o loop de validação com auto-cura antes de commitar na PR Draft, e reconvida a próxima fatia até a última.
 ---
 
 # /sdd-implement
 
-Gerencia o ciclo de governança de versão e executa o desenvolvimento em código com base estrita nas especificações técnicas em `docs/specs/`. Opera como uma **máquina de estados de uma fatia por execução**: cada chamada implementa a próxima fatia pendente, commita e reconvida `/sdd-implement` até que todas estejam concluídas.
+Gerencia o ciclo de governança de versão e executa o desenvolvimento em código com base estrita nas especificações técnicas em `docs/specs/`. Opera como uma **máquina de estados de uma fatia por execução**: cada chamada implementa a próxima fatia pendente, **valida com o loop de auto-cura**, commita e reconvida `/sdd-implement` até que todas estejam concluídas.
+
+**Nenhuma fatia é commitada sem passar pelo loop de validação** (passo 4) — o commit é o portão, não o fim da linha.
 
 ## Passos de Execução
 
@@ -37,7 +39,11 @@ Gerencia o ciclo de governança de versão e executa o desenvolvimento em códig
      - **Testes:** Escreve os testes unitários, de integração e cenários E2E descritos na spec.
    - **Regra de Ouro E2E:** NADA deve ser entregue sem começo, meio e fim. NUNCA faça entregas parciais (ex: backend sem UI, ou código sem suíte de testes correspondente).
 
-4. **Checkpoint & Commit da Fatia (write-back de estado):**
+4. **Loop de Validação da Fatia (portão de commit):**
+   - Executa o **Loop de Validação Adaptativo** de `skills/sdd/references/loop-guide.md` (fonte única da rotina) no **escopo Fatia**: triage de risco, bateria sobre o diff não commitado, auto-cura com orçamento de voltas e review Ponytail com revalidação.
+   - **Portão fechado:** a fatia só avança para o passo 5 com o loop **verde**. Se o loop parar vermelho, a fatia **permanece `EM ANDAMENTO`**, nada é commitado, e a execução termina com o relatório de parada do loop — não passe para a próxima fatia e não convide `/sdd-implement`.
+
+5. **Checkpoint & Commit da Fatia (write-back de estado):**
    - Atualiza o `Status` da fatia para `CONCLUÍDO` no cabeçalho e na seção "Checkpoint de Execução" da sua spec.
    - Executa o commit da fatia usando **Conventional Commits** em PT-BR (ex: `feat(<modulo>): implementa fatia <XX> - <nome-da-fatia>`) e faz o push na branch da PR (`git push origin feat/<slug>`).
 
@@ -45,16 +51,22 @@ Gerencia o ciclo de governança de versão e executa o desenvolvimento em códig
 
 ## 🛑 REGRA OBRIGATÓRIA DE SAÍDA (NEXT COMMAND CALLOUT)
 
-O callout de saída é **condicional**, calculado a partir da contagem de fatias pendentes após o commit desta execução:
+O callout de saída é **condicional**, calculado a partir do resultado do loop e da contagem de fatias pendentes após o commit desta execução:
+
+- **Se o loop de validação parou vermelho** (passo 4), o agente **DEVE** exibir o relatório de parada do loop e terminar com:
+
+  > **🛑 Fatia X de N bloqueada na validação.**
+  > A fatia continua `EM ANDAMENTO` e **não foi commitada** — o orçamento de auto-cura se esgotou com a bateria vermelha. Revise o diagnóstico acima e decida: corrigir manualmente, ajustar a spec da fatia ou reexecutar com mais voltas.
+  > `/sdd-implement` (após resolver o bloqueio)
 
 - **Se ainda restam fatias pendentes**, o agente **DEVE** terminar exibindo:
 
   > **👉 Próximo Passo Recomendado:**
-  > Fatia **X de N** concluída e commitada na PR! Restam **Y** fatia(s). Execute novamente para implementar a próxima fatia de ponta a ponta:
+  > Fatia **X de N** concluída, **validada** e commitada na PR! Restam **Y** fatia(s). Execute novamente para implementar a próxima fatia de ponta a ponta:
   > `/sdd-implement`
 
 - **Se esta era a última fatia (todas `CONCLUÍDO`)**, o agente **DEVE** terminar exibindo:
 
   > **👉 Próximo Passo Recomendado:**
-  > Todas as **N** fatias foram implementadas de ponta a ponta e commitadas na PR! Execute a bateria de validação automática:
+  > Todas as **N** fatias foram implementadas, validadas individualmente e commitadas na PR! Execute a validação de integração da feature completa (regressão entre fatias + E2E):
   > `/sdd-validate`

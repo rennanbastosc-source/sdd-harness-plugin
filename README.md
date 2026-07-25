@@ -12,7 +12,7 @@ O **SDD Harness Plugin** traz uma metodologia robusta de engenharia de produto p
 2. **Escopo Mínimo Viável (`MVP`):** Recorte rigoroso entre **Must-Have** (MVP) e **Nice-To-Have** (futuro), fatiando a entrega em etapas gerenciáveis.
 3. **Especificação Técnica Estrita (`Spec`):** Arquitetura, dados, APIs, UI e testes mapeados de todas as fatias antes da implementação.
 4. **Código Enxuto (`Ponytail Lean Engineering`):** Regras ativas contra sobre-engenharia (*Lazy Senior Dev Mode*). Reuso máximo de código, stdlib e APIs nativas.
-5. **Loop Engineering Adaptativo (`Validate`):** Triage por complexidade, auto-cura (*Self-Healing*) de até 3 voltas em caso de falhas e auditoria anti-overengineering no diff antes do visto final.
+5. **Loop Engineering Adaptativo (dois escopos):** Triage por complexidade, auto-cura (*Self-Healing*) de até 3 voltas e auditoria anti-overengineering no diff. A rotina é uma só e roda **duas vezes**: por fatia, como portão de commit em `/sdd-implement`, e por feature, como portão de merge em `/sdd-validate`. Fatia vermelha não é commitada; PR vermelha não é integrada.
 6. **Entregas Ponta a Ponta:** Toda fatia é construída completa (Backend + Frontend + Testes no mesmo ciclo).
 
 ---
@@ -26,8 +26,8 @@ O plugin disponibiliza 7 slash commands compostos que guiam o desenvolvimento, a
 | **`/sdd`** | 0. Retomada | Guardião de sessão multi-worktree: reconstrói o checkpoint de cada fluxo SDD ativo a partir de `docs/` e do Git (ideal após um `/clear`) | `👉 <comando + pasta detectados>` |
 | **`/sdd-plan <feature>`** | 1. Produto | Entrevista de alinhamento lapidada e geração de `PRD` + `MVP` (N fatias) em `docs/` | `👉 /sdd-spec` |
 | **`/sdd-spec`** | 2. Arquitetura | Mapeamento arquitetural holístico e geração das specs base de **todas as fatias** em `docs/specs/` | `👉 /sdd-implement` |
-| **`/sdd-implement`** | 3. Código & Governança | Criação da branch (`feat/...`), commit dos docs, PR Draft e desenvolvimento e2e sequencial (Backend + UI + Testes) | `👉 /sdd-validate` |
-| **`/sdd-validate`** | 4. Qualidade | Execução automatizada da bateria (Triage de complexidade, Self-Healing por logs, `tsc`, `lint`, `test`, `e2e` e Ponytail Review) | `👉 /sdd-finish` |
+| **`/sdd-implement`** | 3. Código & Governança | Criação da branch (`feat/...`), commit dos docs, PR Draft e desenvolvimento e2e fatia a fatia (Backend + UI + Testes), com **loop de validação como portão de commit** | `👉 /sdd-validate` |
+| **`/sdd-validate`** | 4. Qualidade | O mesmo loop no escopo da **feature inteira**: suíte completa, E2E obrigatório e Ponytail Review — pega regressão entre fatias | `👉 /sdd-finish` |
 | **`/sdd-finish`** | 5. Conclusão | Geração da Spec Final pós-implementação (*as-built*), atualização de `STATE.md`, commit final, push e merge | `👉 /sdd-plan` |
 | **`/sdd-audit`** | 6. Auditoria | Auditoria holística do repositório em 3 dimensões (Lean Code/Ponytail, Governança SDD/STATE.md e Cobertura de Testes) | `👉 /sdd-implement` |
 
