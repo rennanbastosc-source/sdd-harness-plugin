@@ -3,7 +3,7 @@
   "version": "1.6.0",
   "description": "Harness genérico e portátil de Spec-Driven Development com Loop Engineering Adaptativo, Código Enxuto e Auditoria (PRD -> MVP -> Spec -> Implement -> Validate -> Finish | Audit)",
   "author": {
-    "name": "Antigravity SDD Team"
+    "name": "SDD Harness Contributors"
   },
   "license": "MIT",
   "keywords": [
@@ -11,7 +11,13 @@
     "spec-driven-development",
     "prd",
     "mvp",
+    "agent-agnostic",
     "antigravity",
+    "codex",
+    "cursor",
+    "copilot",
+    "windsurf",
+    "gemini-cli",
     "claude-code",
     "opencode",
     "agent-skills",

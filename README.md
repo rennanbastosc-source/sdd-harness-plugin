@@ -4,6 +4,8 @@
 
 O **SDD Harness Plugin** traz uma metodologia robusta de engenharia de produto para transformar ideias em software funcionando de forma iterativa, previsível e sem sobre-engenharia em **qualquer linguagem, framework ou repositório**.
 
+**Agnóstico de agente por construção:** todo o harness é Markdown puro com frontmatter YAML — sem runtime, sem dependência, sem binário. Roda em Claude Code, OpenCode, Codex CLI, Cursor, Copilot, Windsurf, Gemini CLI, Antigravity e qualquer agente que leia arquivos de skill/command. Veja [Compatibilidade](#-compatibilidade-de-agentes).
+
 ---
 
 ## 🎯 Por que usar Spec-Driven Development?
@@ -33,25 +35,66 @@ O plugin disponibiliza 7 slash commands compostos que guiam o desenvolvimento, a
 
 ---
 
-## 💻 Instalação
+## 🤖 Compatibilidade de Agentes
 
-### Opção A: Instalação Global (Todos os Projetos no seu Computador)
+O harness são só dois diretórios de Markdown:
 
-Clone este repositório na sua pasta global de configurações de agente:
+- `skills/` — as 7 skills (`SKILL.md` + `references/`), onde mora toda a lógica;
+- `commands/` — 7 stubs de uma linha que apenas invocam a skill correspondente.
+
+Qualquer agente que leia um desses dois formatos executa o fluxo completo. Nada mais é necessário.
+
+| Agente | Global | No projeto | O que copiar |
+|---|---|---|---|
+| **Claude Code** | `~/.claude/skills/` | `.claude/skills/` | `skills/*` (+ `commands/*` em `.claude/commands/`) |
+| **OpenCode** | `~/.config/opencode/skills/` | `.opencode/skills/` | `skills/*` |
+| **Codex CLI** | `~/.codex/skills/` | `.codex/skills/` ou `.agents/skills/` | `skills/*` |
+| **Cursor** | — | `.cursor/commands/` | `commands/*` |
+| **GitHub Copilot** | — | `.github/prompts/` | `commands/*` renomeados para `*.prompt.md` |
+| **Windsurf** | `~/.codeium/windsurf/workflows/` | `.windsurf/workflows/` | `commands/*` |
+| **Gemini CLI** | `~/.gemini/commands/` | `.gemini/commands/` | `commands/*` convertidos para `.toml` (ver abaixo) |
+| **Antigravity** | `~/.gemini/config/plugins/` | — | repositório inteiro |
+| **Roo Code** | `~/.roo/commands/` | `.roo/commands/` | `commands/*` |
+| **Outros** | — | `.agents/skills/` | `skills/*` |
+
+> Agentes que suportam **Agent Skills** (`SKILL.md`) carregam a skill sob demanda e leem `references/` só quando precisa — mais barato em contexto. Agentes que só suportam slash commands usam `commands/`, que apontam para a skill; nesse caso copie **os dois** diretórios para o agente achar o conteúdo referenciado.
+
+### Instalação
 
 ```bash
-# Para Antigravity / Gemini CLI
-git clone https://github.com/SEU-USUARIO/sdd-harness-plugin.git ~/.gemini/config/plugins/sdd-harness-plugin
+git clone https://github.com/rennanbastosc-source/sdd-harness-plugin.git /tmp/sdd-harness
 
-# Ou instale as skills diretamente em ~/.claude/skills ou ~/.gemini/config/skills
+# Claude Code (global)
+cp -r /tmp/sdd-harness/skills/*   ~/.claude/skills/
+cp -r /tmp/sdd-harness/commands/* ~/.claude/commands/
+
+# OpenCode (global)
+cp -r /tmp/sdd-harness/skills/*   ~/.config/opencode/skills/
+
+# Codex CLI (global)
+cp -r /tmp/sdd-harness/skills/*   ~/.codex/skills/
+
+# No projeto (Cursor / Windsurf / Copilot — troque o destino conforme a tabela)
+cp -r /tmp/sdd-harness/commands/* .cursor/commands/
 ```
 
-### Opção B: Instalação no Repositório do Projeto / Equipe
-
-Adicione este plugin como submódulo ou clone na pasta `.claude/skills` ou `.agents/skills` do repositório:
+Prefere versionar com a equipe? Use submódulo em vez de cópia:
 
 ```bash
-git clone https://github.com/SEU-USUARIO/sdd-harness-plugin.git .claude/skills/sdd-harness
+git submodule add https://github.com/rennanbastosc-source/sdd-harness-plugin.git .agents/sdd-harness
+```
+
+### Gemini CLI (formato TOML)
+
+O Gemini CLI usa TOML, não Markdown. Converta cada command uma vez:
+
+```bash
+mkdir -p ~/.gemini/commands
+for f in /tmp/sdd-harness/commands/*.md; do
+  n=$(basename "$f" .md)
+  printf 'description = "SDD Harness: %s"\nprompt = """\n%s\n"""\n' \
+    "$n" "$(cat "$f")" > ~/.gemini/commands/"$n".toml
+done
 ```
 
 ---
